@@ -3,7 +3,8 @@ const getYoutubeID = require('get-youtube-id');
 const fetchVideoInfo = require("youtube-info");
 const ytdl = require('ytdl-core');
 
-const YT_API_KEY = "";
+const YT = require("./YtConfig.json");
+const YT_API_KEY = YT.yt_key;
 const STREAM_SETTING =  {filter: 'audioonly'};
 const YOUTUBE_PREFIX = "https://www.youtube.com/watch?v=";
 
