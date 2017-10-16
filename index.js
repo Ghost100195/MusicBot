@@ -17,13 +17,15 @@ client.on("ready", () => {
   fnc[bot.prefix] = bot;
   prefixs.push(bot.prefix);
   prefixs.push(player.prefix);
-  console.log("ready");
+  
+    console.log("ready");
 });
 
 
 client.on("message", message => {
   if(message.author.bot) return;
-  
+
+
   for(let i = 0; i < prefixs.length; i++){
     if(message.content.indexOf(prefixs[i]) === 0){
       message.content = message.content.slice(prefixs[i].length).trim();
@@ -34,6 +36,7 @@ client.on("message", message => {
       break;
     }
   }
+
 });
 
 client.on("voiceStateUpdate", (oldMember, newMember) => {
