@@ -1,0 +1,111 @@
+{
+    "prefix": "+",
+    "controller_roles": "Admin",
+    "time_of_leave": "10",
+    "time_of_request": "120",
+    "dev": {
+        "channel": "345159959895474177", 
+        "guild": "345159959895474176"
+    },
+    "activ": {
+        "channel" : "244147028865581056",
+        "guild" : "223477517007192064"
+    },
+    "cmd_prefix": {
+        "PLAY": {
+            "prefix": ["play"],
+            "fnc": "play",
+            "info": "hinzufügen/abspielen",
+            "arguments": "[Suchbegriff] oder [Youtube-Url]",
+            "helper": true,
+            "only_controller": false 
+        },
+        "SKIP": {
+            "prefix": ["skip"],
+            "fnc": "skip",
+            "info": "Abstimmung zum Überspringen des aktuellen Liedes",
+            "arguments": " ",
+            "helper": true,
+            "only_controller": false 
+        },
+        "JOIN": {
+            "prefix": ["join"],
+            "fnc": "join",
+            "info": "Join kann genutzt werden um einer Bot-Einladung zuzustimmen",
+            "arguments": " ",
+            "helper": true,
+            "only_controller": false 
+        },
+        "SAVE_PLAYLIST": {
+            "prefix": ["save"],
+            "fnc": "save",
+            "info": "Speichert die aktuelle Playlist um sie später wieder abzuspielen",
+            "arguments": "[Playlist Name]",
+            "helper": true,
+            "only_controller": false 
+        },
+        "LOAD_PLAYLIST": {
+            "prefix": ["load"],
+            "fnc": "load",
+            "info": "Lädt eine abgespeicherte Playlist und fügt sich der aktuellen hinzu",
+            "arguments": "[Playlist Name]",
+            "helper": true,
+            "only_controller": false 
+        },
+        "LIST": {
+            "prefix": ["list"],
+            "fnc": "list",
+            "info": "Ausgabe der Playlist",
+            "arguments": " ",
+            "helper": true,
+            "only_controller": false
+        },
+        "LOOP":{
+            "prefix": ["loop"],
+            "fnc": "loop",
+            "info": "Aktivieren/Deaktivieren des Schleifen-Modus",
+            "arguments": "[optional [on] oder [off]]",
+            "helper": true,
+            "only_controller": true 
+        },
+        "SHUFFLE":{
+            "prefix": ["shuffle"],
+            "fnc": "shuffle",
+            "info": "Aktivieren/Deaktivieren des Shuffle-Modus",
+            "arguments": "[optional [on] oder [off]]",
+            "helper": true,
+            "only_controller": true
+        },
+        "DELETE_LIST":{
+            "prefix": ["delall"],
+            "fnc": "deleteList",
+            "info": "Löscht die Playlist",
+            "arguments": " ",
+            "helper": true,
+            "only_controller": true
+        },
+        "REMOVE_SONG":{
+            "prefix": ["del"],
+            "fnc": "removeSong",
+            "info": "Löscht ein Lied aus der Playlist!",
+            "arguments": "[Playlist Position]",
+            "helper": true,
+            "only_controller": true
+        },
+        "BAN":{
+            "prefix": ["ban"],
+            "fnc": "ban",
+            "info": "Einen anderen User für max. 60 Minuten bannen - Seine Befehle werden vom Bot ignoriert!",
+            "arguments": "[Name des Users] [Zeit in Minuten]",
+            "helper": true,
+            "only_controller": true
+        },
+        "HELP":{
+            "prefix": ["help"],
+            "fnc": "help",
+            "info": "Löscht die Playlist",
+            "arguments": " ",
+            "helper": false
+        }
+    }
+}

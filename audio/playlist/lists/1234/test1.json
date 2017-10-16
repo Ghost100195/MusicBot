@@ -1,0 +1,27 @@
+{
+  "playlist": [
+    {
+      "id": "JByDbPn6A1o",
+      "title": "Eminem - Space Bound",
+      "duration": "4:25",
+      "requester": "",
+      "url": "https://www.youtube.com/watch?v=JByDbPn6A1o",
+      "src": "youtube"
+    },
+    {
+      "id": "MQrhPhan5Gw",
+      "title": "Why Africa must become a center of knowledge again | Olúfẹ́mi Táíwò",
+      "duration": "13:31",
+      "url": "https://www.youtube.com/watch?v=MQrhPhan5Gw",
+      "src": "youtube"
+    },
+    {
+      "id": "AA",
+      "title": "Numb",
+      "duration": "4:25",
+      "requester": "",
+      "url": "https://www.youtube.com/watch?v=JByDbPn6A1o",
+      "src": "youtube"
+    }
+  ]
+}
