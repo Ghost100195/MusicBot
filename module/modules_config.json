@@ -1,4 +1,5 @@
 {
     "audio": "./audio/AudioMaster.js",
-    "bot": "./bot/bot.js"
+    "bot": "./bot/bot.js",
+    "playlist": "./playlist/PlaylistCreator.js"
 }
