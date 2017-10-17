@@ -55,17 +55,26 @@ class PlaylistCreator{
     }
 
     onMessage({ message }){
-        if(message.content.indexOf(prefix) === 0){
-            message.content = message.content.slice(prefix).trim();
-        }
-  
-        const args = message.content.split(/ +/g);
-        const cmd = args.shift();  
-        
-        if(this.fnc[cmd] && this._allowed(message.author.id, cmd)){
-            if(cmd === "start" || message.channel.type === "dm") this.fnc[cmd](message, args);
+        if(this.onWork[message.author.id] && message.channel.type === "dm"){
+            const args = message.content.split(/ +/g);
+            const cmd = args.shift();  
+
+            if(this.fnc[cmd] && this._allowed(message.author.id, cmd)){
+                this.fnc[cmd](message, args);
+            }else{
+                this._sendAuthorMessage(message, "Dein Commando wurde nicht erkannt oder du befindest dich nicht im PlaylistEdit-Modus!");
+            }
+            return;
         }else{
-            this._sendAuthorMessage(message, "Dein Commando wurde nicht erkannt oder du befindest dich nicht im PlaylistEdit-Modus!");
+            if(message.content.indexOf(prefix) === 0){
+                const content = message.content.slice(prefix.length).trim();
+                const args = content.split(/ +/g);
+                const cmd = args.shift().trim();  
+
+                if(this.fnc[cmd] && cmd === "start"){
+                    this.fnc[cmd](message, args);
+                }
+            }
         }
     }
 
@@ -76,9 +85,8 @@ class PlaylistCreator{
             playlist : [], 
             timeInMenu: new Date().getTime()
         }
-
+        this._changeModiToMenu(message.author.id);
         this._sendAuthorMessage(message, this._infoMenu());
-        this._delayRemove(message.author.id);
     }
     
     newPlaylist(message, args){
@@ -107,13 +115,19 @@ class PlaylistCreator{
 
     editing(message, args){  
         if(!args[0]) {
-            this._sendAuthorMessage(message, "Der Playlistname konnte nicht gefunden werden!");
+            this._sendAuthorMessage(message, "Der Playlist name konnte nicht gefunden werden!");
             return;
         }
         this.onWork[message.author.id].playlist = load(message.author.id, args[0]);
-        this.onWork[message.author.id].playlist_name = args[0];
-        this._changeModiToEdit(message.author.id);
-        this._sendAuthorMessage(message, this._infoEdit(args[0]));
+
+        if(this.onWork[message.author.id].playlist !== null){
+            this.onWork[message.author.id].playlist_name = args[0];
+            this._changeModiToEdit(message.author.id);
+            this._sendAuthorMessage(message, this._infoEdit(args[0]));
+        }else{
+            this.onWork[message.author.id].playlist = [];
+            this._sendAuthorMessage(message,"Playlist wurde nicht gefunden!");
+        }
     }
 
     list(message, args){
@@ -211,7 +225,7 @@ class PlaylistCreator{
         this.onWork[message.author.id].playlist = [];
         this.onWork[message.author.id].playlist_name = "";
         this._changeModiToMenu(message.author.id);
-        this._delayRemove(message.author.id);
+       
         this._sendAuthorMessage(message, `Die Playlist wurde erfolgreich gespeichert! \n` + this._infoMenu());
     }
 
@@ -224,7 +238,7 @@ class PlaylistCreator{
                     delete this.onWork[userID];
                 }
             }
-        })
+        }, 181*1000)
     }
 
     setPublic(message, args){
@@ -237,10 +251,10 @@ class PlaylistCreator{
 
     _changeModiToMenu(userID){
         this.onWork[userID].modi = "menu";
+        this._delayRemove(userID);
     }
 
     _allowed(userID, cmd){
-        if(cmd === "start") return true;
         if(this.onWork[userID]){
             if(this.states.menu.includes(cmd) && this.onWork[userID].modi === "menu") return true;
             if(this.states.edit.includes(cmd) && this.onWork[userID].modi === "edit") return true;
@@ -270,7 +284,7 @@ class PlaylistCreator{
                 `Folgende Funktionen stehen zur Verfügung: \n`+
                 `add [url oder Suchbegriff] \n`+
                 `remove [Position des Liedes] \n`+
-                `show`+
+                `show \n`+
                 `switch [Position1, Position 2]\n`);
     }
 

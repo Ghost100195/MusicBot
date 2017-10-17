@@ -7,6 +7,8 @@ const AudioPlayer = require('./player/AudioPlayer.js');
 const Song = require('./data/Song.js');
 const YtLoader = require('./source/YtLoader');
 
+const  { load } = require('../playlist/fileManager');
+
 const {
     hasPermission,
     setOnBlacklist
@@ -40,8 +42,8 @@ class AudioMaster {
 
     onMessage({message}) {
         if (message.content.indexOf(config.prefix) === 0) {
-            message.content = message.content.slice(config.prefix.length).trim();
-            const args = message.content.split(/ +/g);
+            const content = message.content.slice(config.prefix.length).trim();
+            const args = content.split(/ +/g);
 
             if (message.channel.id === this.channel.id) {
                 const cmd = args.shift().toLowerCase();
@@ -54,9 +56,8 @@ class AudioMaster {
                     } else {
                         message.reply(` Du hast keine Berechtigung den Bot zu steuern!`);
                     }
+                    message.delete();
                 }
-
-                message.delete();
             }
         }
     }
@@ -223,27 +224,26 @@ class AudioMaster {
 
     load(message, args) {
         if (args[0]) {
-            this.player.loadPlaylist(args[0], (songs, err) => {
-                if (err) {
-                    console.log(err);
-                    // send Message
-                    return;
-                }
+            const playlist = load(message.author.id, args[0]);
+           
+            if (playlist === null) {
+                message.reply("Playlist konnte nicht geladen werden!");
+                return;
+            }
 
-                for (let key in songs) {
-                    const song = Song.copy(songs[key]);
+            playlist.forEach((songData) => {
+                const song = Song.copy(songData);
 
-                    if (this.voiceChannel !== null) {
-                        this.player.addSong(song);
-                    } else {
-                        const result = this._musicRequest(message.author.id, message.member.voiceChannel, song);
-                        if (result.queue) {
-                            this._startMusic(result.queue, message.member.voiceChannel);
-                            this.channel.send(`Musik wurde im Channel ${this.voiceChannel.name} gestartet`);
-                        }
+                if (this.voiceChannel !== null) {
+                    this.player.addSong(song);
+                } else {
+                    const result = this._musicRequest(message.author.id, message.member.voiceChannel, song);
+                    if (result.queue) {
+                        this._startMusic(result.queue, message.member.voiceChannel);
+                        this.channel.send(`Musik wurde im Channel ${this.voiceChannel.name} gestartet`);
                     }
                 }
-            });
+            });     
         }
     }
 
