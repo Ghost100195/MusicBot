@@ -1,0 +1,33 @@
+{
+    "prefix": "!",
+    "cmd_prefix":{
+        "LAN": {
+            "prefix": ["lan"],
+            "fnc": "lan",
+            "info": "Countdown bis zur NGC",
+            "arguments": " ",
+            "helper": true
+        },
+        "BUG": {
+            "prefix": ["bug"],
+            "fnc": "bug",
+            "info": "Zum melden von Bugs",
+            "arguments": "[Text]",
+            "helper": true
+        },
+        "WISH": {
+            "prefix": ["wish"],
+            "fnc": "wish",
+            "info": "Funktionswünsche",
+            "arguments": "[Text]",
+            "helper": true
+        },
+        "HELP": {
+            "prefix": ["help"],
+            "fnc": "help",
+            "info": " ",
+            "arguments": " ",
+            "helper": false
+        }
+    }
+}
