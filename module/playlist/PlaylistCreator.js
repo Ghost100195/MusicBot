@@ -285,7 +285,8 @@ class PlaylistCreator{
                 `add [url oder Suchbegriff] \n`+
                 `remove [Position des Liedes] \n`+
                 `show \n`+
-                `switch [Position1, Position 2]\n`);
+                `switch [Position1, Position 2]\n`+
+                `** AM ENDE MIT 'FINISH' SPEICHERN! **`);
     }
 
     connect(subscribe){

@@ -274,7 +274,11 @@ class AudioMaster {
             const pos = args.shift().trim();
             const song = this.player.removeSong(pos);
 
-            this.channel.send(`Bot-Controller ${this.botController.username} hat das Lied ** ${song.title} ** entfernt!`);
+            if(song !== null) {
+                this.channel.send(`Bot-Controller ${this.botController.username} hat das Lied ** ${song.title} ** entfernt!`);
+            }else{
+                this.channel.send(`Der Song konnte nicht gelöscht werden`);
+            }
         }
     }
 
@@ -308,7 +312,7 @@ class AudioMaster {
             if (new Date().getTime() - this.skippsViaMute[newMember.id] < 1000) {
                 this._skip(newMember.id, (skipMessage) => {
                     if (skipMessage.info) {
-                        this.channel.send(`<@${oldmember.id}> ` + skipMessage.info);
+                        this.channel.send(`<@${oldMember.id}> ` + skipMessage.info);
                     } else if (skipMessage.title) {
                         this.channel.send(`Das Lied ${skipMessage.title} wurde übersprungen`);
                     }

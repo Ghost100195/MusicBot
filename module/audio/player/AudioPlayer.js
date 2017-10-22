@@ -106,6 +106,7 @@ class AudioPlayer{
             this.queue.splice(pos, 1);
             return song;
         }
+        return null;
     }
 
     savePlaylist(filename, callback){
