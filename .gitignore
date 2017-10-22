@@ -1,5 +1,4 @@
 node_modules/
 _config.json
-yt_config.json
+**/yt_config.json
 lists/
-.gitignore
