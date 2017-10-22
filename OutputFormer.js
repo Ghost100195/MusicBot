@@ -6,7 +6,9 @@ const LINIE = {
     bottom_right: "\u2514",
     bottom_left: "\u2518",
     center_right: "\u251C",
-    center_left: "\u2525"
+    center_left: "\u2525",
+    double_horizontal: "\u2550",
+    double_vertikal: "\u2551"
 };
 
 //const BOX_LENGTH = 10;
@@ -58,11 +60,11 @@ function drawBox({ content, length, padding, position, align, sideNote}){
    
     var placeholder = "";
     for(let i = 0; i < padding/2; i++){
-        placeholder += " ";
+        placeholder += "\u0020";
     }
 
     if(align === "left"){
-        tmp_content_line += LINIE.vertikal;
+        tmp_content_line += " " +LINIE.vertikal;
         tmp_content_line += placeholder + content; 
         for(let i = 0; i < (length - (content.length + padding + sideNote.length)); i++){
             tmp_content_line += " ";
@@ -87,12 +89,25 @@ function drawBox({ content, length, padding, position, align, sideNote}){
     return box;
 }
 
-let box = {
-    content : "- Hallo welt!",
-    padding: 3
+function drawLine(length, double = false){
+    let line = "";
+    for(let i = 0; i < length; i++){
+        line += double ? LINIE.double_horizontal : LINIE.horizontal;
+    }
+    return line;
 }
 
+function drawList(conntentAsArray ,width, lastDouble = false){
+    var result = "";
+    let i = 0; 
+    conntentAsArray.forEach(({content, symbole}) => {
+        const between = width - content.length;
+        var space = "";
+        for(let i = 0; i < between; i++) space += " ";
+        result += symbole + space + content  + "\n" + (lastDouble && i + 1 === conntentAsArray.length ? drawLine(width, true) : drawLine(width)) + "\n";
+        i++;
+    });
+    return result;
+}
 
-
-
-module.exports = {drawBox};
+module.exports = {drawBox, drawLine, drawList};
