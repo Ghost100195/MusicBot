@@ -1,11 +1,13 @@
 const Discord = require("discord.js");
 const { drawBox, drawLine, drawList } = require('./OutputFormer.js');
+const Embed = require('./ReactionEmbed');
+
 
 function createRichEmbed(){
-    const embed = new Discord.RichEmbed();
+    const embed = new Embed();
     const content = [{content: "Hello World", symbole:"1⃣" }, 
-                    {content: "Hello World", symbole:"1⃣" }, 
-                    {content: "Hello World", symbole:"1⃣" }];
+                    {content: "Hello World", symbole:"2⃣" }, 
+                    {content: "Hello World", symbole:"3⃣" }];
         
     const playlist = [{content: "Numb", symbole:"1"},
                         {content: "In the end", symbole:"2"}];
@@ -14,16 +16,12 @@ function createRichEmbed(){
     .setAuthor("DjBotto", "https://www.shareicon.net/download/2017/06/21/887435_logo_512x512.png")
     .setTitle("Playlist Bearbeitung")
     .setDescription("Du befindest dich im Menü")
-    .addField("Funktionen", drawLine(30)+ "\n" + drawList(content, 30, true))
+    .addList("Funktionen", content, 30)
     .addBlankField()
-    .addField("Deine Playlisten", drawLine(30)+ "\n" + drawList(playlist, 30, true))
+    .addList("Deine Playlisten", playlist, 30)
     .addBlankField()
-    .addField("Status" , "Bitte wählen sie eine Aktion ... ");
-    return {embed};
-}
-
-function createLogikMenu(collection){
-    
+    .addStatus("Bitte wählen sie eine Aktion mittels klick auf den entsprechenden Emoji .. ");
+    return embed;
 }
 
 module.exports = {createRichEmbed};

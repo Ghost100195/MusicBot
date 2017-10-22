@@ -13,30 +13,7 @@ class PlaylistCreator{
             menu: ['list', 'new', 'delete', 'edit', 'rename'],
             edit: ['add', 'remove', 'switch', 'finish', 'show']
         };
-
-        // modis = menu, edit
-        /*
-            finishEditing or start() get in menu mode
-            menu = 
-                list
-                newPlaylist
-                deletePlaylist
-                editing
-                 rename
-        */ 
-
-        /*
-            editing() or newPlaylist() get in edit mode
-            edit = 
-                add
-                remove
-                switchPosition
-                finish
-
-                public or not
-               
-        */
-
+        
         this.fnc = {
             start: this.start.bind(this),
 
@@ -268,6 +245,27 @@ class PlaylistCreator{
     }
 
     _infoMenu(){
+        const Embed = require('../../util/ReactionEmbed');
+
+        const actions = [
+            {content: "Neu", symbole:""},
+            {content: "Umbennen", symbole:""},
+            {content: "Bearbeiten", symbole:""},
+            {content: "Löschen", symbole:""}
+        ];
+
+        const playlists = readPlaylistNames(); // Die Author ID fehlt hier noch!
+        const answer = new Embed()
+                        .setColor("GREEN")
+                        .setAuthor("DjBotto", "https://www.shareicon.net/download/2017/06/21/887435_logo_512x512.png")
+                        .setTitle("Playlist Bearbeitung")
+                        .setDescription("Du befindest dich im Menü")
+                        .addList("Funktionen", actions, 30)
+                        .addBlankField()
+                        .addList("Deine Playlisten", playlists, 30)
+                        .addBlankField()
+                        .addStatus("Bitte wählen sie eine Aktion mittels klick auf den entsprechenden Emoji .. ");
+
         return (`Du bist nun im Playlist-Edit Modus \n` +
                 `--------------------------------------------- \n` +
                 `Folgende Funktionen stehen zur Verfügung: \n` +

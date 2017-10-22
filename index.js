@@ -16,8 +16,19 @@ client.on("message", message => {
  // moduleLoader.onAction("message", {message});
  
   const { createRichEmbed }  = require('./RichEmbedManager');
-  message.reply(createRichEmbed());
+  const embed = createRichEmbed();
+  const send = () => {
+    message.channel.send({embed})
+    .then(
+      embed.getReactionListener((emoji, user) => {
+        console.log(emoji, user.username);
+        send();
+      })
+    ).catch((err) => console.log(err));
+  };
+  send();
 });
+
 
 client.on("voiceStateUpdate", (oldMember, newMember) => {
   //moduleLoader.onAction("voiceStateUpdate", {oldMember, newMember});
