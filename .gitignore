@@ -1,4 +1,7 @@
 node_modules/
+
+**/source/yt_config.json
+
 _config.json
-**/yt_config.json
+
 lists/
